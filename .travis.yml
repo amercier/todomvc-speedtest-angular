@@ -1,0 +1,13 @@
+sudo: false
+language: node_js
+cache:
+  directories:
+  - bower_components
+  - node_modules
+env:
+  global:
+  - GH_REF=github.com/amercier/todomvc-speedtest-angular.git
+  - secure: "LIDntqmp5K+1dZ+sX7zBwYu0dBsCFd/+4Fchn0P7lP40beVfYlJqcNSdm43H5+IXcLBMXihiWCfhDfK7g+vwwwiFIjWjRNpnMgRgQwtibIW2nmkpiCLqN4V7iS+aQJ29h6BKK9gjsBuismZrhKVhy1DBzyGTTFmLEY8TaP85cvo="
+after_success:
+- test "$TRAVIS_PULL_REQUEST" = "false" && test "$TRAVIS_BRANCH" = "master" && ./build.sh dist /todomvc-speedtest-angular || echo "Pull request. Skipping build" >&2
+- test "$TRAVIS_PULL_REQUEST" = "false" && test "$TRAVIS_BRANCH" = "master" && ./deploy.sh dist || echo "Pull request. Skipping deployment" >&2
